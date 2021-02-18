@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name', 512);
             $table->string('color', 32);
+            $table->unsignedInteger('order_no')->default(0);
             $table->timestamps();
         });
     }

@@ -11,9 +11,14 @@ class ProductsController extends Controller
     {
         $start  = (int)request()->get('start');
         $length = (int)request()->get('length');
-        $result = Product::offset($start)->limit($length)->get();
+        if ($length <= 0) $length = 10;
 
-        return ['start' => $start, 'length' => $length, 'result' => $result];
+        $result = Product::offset($start)->limit($length)->get();
+        foreach ($result as &$row) {
+            $row->user;
+            $row->category;
+        }
+        return $result;
     }
 
     public function create(ProductRequest $request)
@@ -28,21 +33,24 @@ class ProductsController extends Controller
 
     public function read(int $id)
     {
-        /** @var Product $product */
-        $product = Product::findOrFail($id);
-        $product->user;
-        $product->category;
+        /** @var Product $row */
+        $row = Product::findOrFail($id);
+        $row->user;
+        $row->category;
 
-        return $product;
+        return $row;
     }
 
-    public function update(int $id)
+    public function update(int $id, ProductRequest $request)
     {
-        // TODO: Implement update() method.
+        /** @var Product $save */
+        $save = Product::findOrFail($id);
+        return $save->fill($request->all())->save();
     }
 
     public function delete(int $id)
     {
-        // TODO: Implement delete() method.
+        Product::findOrFail($id)->delete();
+        return;
     }
 }

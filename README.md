@@ -31,12 +31,15 @@ HTTP      URL                    CLASS METHOD     ROUTE NAME
 GET       /products              index            products.index
 POST      /products/create       create           products.create
 GET       /products/{id}         read             products.read
-PUT       /products/{id          update           products.update
+PUT       /products/{id}         update           products.update
 DELETE    /products/{id}         delete           products.delete
 
 ```
 
 You can look to `App\Extended\Router::restCrud()` method for implementation.
+
+**Important thing about `PUT` (update) method:** You must make **HTTP POST** request and you must add `_method=PUT` parameter to form parameters. Otherwise Laravel can't
+recognize the `PUT` method and routes blowing up.
 
 ## What about authentication?
 
@@ -48,6 +51,8 @@ Authentication controller for login-logout operations.
 All of these must be solve:
 
 - Showing 404 if a request not validated. I must investigate this.
+    - I investigated. `findOrFail()` method is causing this. If we don't find requested id from table then Laravel is opening 404 page. In API response I must catch this
+      and print as JSON.
 
 
 

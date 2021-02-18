@@ -7,9 +7,13 @@ use App\Models\Category;
 
 class CategoriesController extends Controller
 {
-    public function list()
+    public function index()
     {
-        return ['aa', 'bb'];
+        $start  = (int)request()->get('start');
+        $length = (int)request()->get('length');
+        if ($length <= 0) $length = 10;
+
+        return Category::orderBy('order_no')->offset($start)->limit($length)->get();
     }
 
     public function create(CategoryRequest $request)
@@ -20,16 +24,23 @@ class CategoriesController extends Controller
 
     public function read(int $id)
     {
-        // TODO: Implement read() method.
+        /** @var Category $row */
+        $row = Category::findOrFail($id);
+        $row->products;
+
+        return $row;
     }
 
-    public function update(int $id)
+    public function update(int $id, CategoryRequest $request)
     {
-        // TODO: Implement update() method.
+        /** @var Category $save */
+        $save = Category::findOrFail($id);
+        return $save->fill($request->all())->save();
     }
 
     public function delete(int $id)
     {
-        // TODO: Implement delete() method.
+        Category::findOrFail($id)->delete();
+        return;
     }
 }

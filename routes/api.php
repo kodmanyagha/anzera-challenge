@@ -2,7 +2,6 @@
 
 //use Illuminate\Support\Facades\Route;
 use App\Extended\Facade\Route;
-use Illuminate\Http\Request;
 
 
 /*
@@ -19,6 +18,6 @@ use Illuminate\Http\Request;
 Route::restCrud('categories', \App\Http\Controllers\CategoriesController::class);
 Route::restCrud('products', \App\Http\Controllers\ProductsController::class);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::any('/', function () {
+    return ["Nothing else matters"];
 });
