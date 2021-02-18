@@ -1,9 +1,9 @@
 <?php
 
+//use Illuminate\Support\Facades\Route;
 use App\Extended\Facade\Route;
 use Illuminate\Http\Request;
 
-//use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +16,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::restCrud('categories', \App\Http\Controllers\Categories::class);
-Route::restCrud('products', \App\Http\Controllers\Products::class);
+Route::restCrud('categories', \App\Http\Controllers\CategoriesController::class);
+Route::restCrud('products', \App\Http\Controllers\ProductsController::class);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
-
-Route::get('/', function (Request $request) {
-    return ['Nothing else matters'];
 });

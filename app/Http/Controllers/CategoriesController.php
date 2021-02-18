@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
-class Categories extends AbstractRestCrudController
+use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
+
+class CategoriesController extends Controller
 {
     public function list()
     {
         return ['aa', 'bb'];
     }
 
-    public function store()
+    public function create(CategoryRequest $request)
     {
-
+        $input = $request->all();
+        return Category::create($input);
     }
 
     public function read(int $id)

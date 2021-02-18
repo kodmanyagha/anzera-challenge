@@ -26,7 +26,7 @@ class ProductRequest extends FormRequest
         return [
             'category_id' => 'required|int',
             'name'        => 'required|string',
-            'price'       => 'required|float',
+            'price'       => 'required|numeric',
             'quantity'    => 'required|int|min:0',
             'status'      => 'required|string',
             'image_path'  => 'required|string',

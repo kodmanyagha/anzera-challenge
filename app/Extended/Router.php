@@ -20,14 +20,12 @@ class Router extends BaseRouter
      */
     public function restCrud($name, $controller)
     {
-        $this->get($name . '/index', [$controller, 'index'])->name($name . '.index');
-        $this->post($name . '/store', [$controller, 'store'])->name($name . '.store');
+        $this->get($name, [$controller, 'index'])->name($name . '.index');
+        $this->post($name . '/create', [$controller, 'create'])->name($name . '.create');
         $this->get($name . '/read/{id}', [$controller, 'read'])->name($name . '.read');
         $this->put($name . '/update/{id}', [$controller, 'update'])->name($name . '.update');
         $this->delete($name . '/delete/{id}', [$controller, 'delete'])->name($name . '.delete');
 
         return $this;
     }
-
 }
-
